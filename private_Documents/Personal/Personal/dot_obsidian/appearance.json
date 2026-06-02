@@ -1,0 +1,10 @@
+{
+  "accentColor": "#f97316",
+  "cssTheme": "",
+  "enabledCssSnippets": [
+    "opencode-tui"
+  ],
+  "translucency": true,
+  "showRibbon": false,
+  "theme": "obsidian"
+}

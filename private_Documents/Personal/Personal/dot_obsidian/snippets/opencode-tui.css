@@ -1,0 +1,735 @@
+/* opencode TUI — terminal-black, orange accent, tmux-like panes */
+
+.theme-dark {
+  --color-base-00: #000000;
+  --color-base-05: #030303;
+  --color-base-10: #050505;
+  --color-base-15: #080808;
+  --color-base-20: #0a0a0a;
+  --color-base-25: #0e0e0e;
+  --color-base-30: #111111;
+  --color-base-35: #161616;
+  --color-base-40: #1a1a1a;
+  --color-base-50: #2a2a2a;
+  --color-base-60: #4a4a4a;
+  --color-base-70: #6b6b6b;
+  --color-base-100: #b0b0b0;
+
+  --accent-h: 25;
+  --accent-s: 95%;
+  --accent-l: 54%;
+  --color-accent: hsl(var(--accent-h), var(--accent-s), var(--accent-l));
+  --color-accent-hsl: hsl(var(--accent-h), var(--accent-s), var(--accent-l));
+  --color-accent-1: hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) + 10%));
+  --color-accent-2: hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) - 10%));
+
+  --text-accent: var(--color-accent);
+  --text-accent-hover: var(--color-accent-1);
+  --text-normal: #b0b0b0;
+  --text-muted: #5a5a5a;
+  --text-faint: #333333;
+  --text-on-accent: #000000;
+
+  --interactive-accent: var(--color-accent);
+  --interactive-accent-hover: var(--color-accent-1);
+  --interactive-accent-rgb: 249, 115, 22;
+
+  --background-primary: #000000;
+  --background-primary-alt: #030303;
+  --background-secondary: #050505;
+  --background-secondary-alt: #080808;
+  --background-modifier-border: #151515;
+  --background-modifier-border-hover: #252525;
+  --background-modifier-border-focus: var(--color-accent);
+
+  --background-modifier-form-field: #080808;
+  --background-modifier-form-field-highlighted: #0e0e0e;
+  --background-modifier-box-shadow: rgba(0, 0, 0, 0.6);
+  --background-modifier-cover: rgba(0, 0, 0, 0.8);
+
+  --divider-color: #111111;
+  --divider-color-hover: #1a1a1a;
+
+  --prompt-border-color: #151515;
+  --shadow-color: transparent;
+
+  --nav-item-color: var(--text-normal);
+  --nav-item-color-hover: var(--text-accent);
+  --nav-item-color-active: var(--text-accent);
+  --nav-item-background-active: rgba(249, 115, 22, 0.1);
+  --nav-item-background-hover: rgba(255, 255, 255, 0.03);
+
+  --tag-color: var(--text-accent);
+  --tag-background: #111111;
+
+  --checkbox-color: var(--text-accent);
+  --checkbox-color-hover: var(--color-accent-1);
+
+  --button-color: #b0b0b0;
+
+  --tab-background-active: #050505;
+  --tab-outline-color: #151515;
+
+  --titlebar-background: #000000;
+  --titlebar-background-focused: #000000;
+
+  --code-background: #050505;
+  --code-normal: #b0b0b0;
+  --code-comment: #5c6370;
+  --code-function: #e5c07b;
+  --code-keyword: #c678dd;
+  --code-operator: #abb2bf;
+  --code-property: #e06c75;
+  --code-punctuation: #5c6370;
+  --code-string: #98c379;
+  --code-tag: #61afef;
+  --code-value: #d19a66;
+  --code-number: #d19a66;
+  --code-important: #e06c75;
+  --code-linenumber: #555555;
+  --code-attribute: #98c379;
+
+  --scrollbar-bg: transparent;
+  --scrollbar-thumb-bg: #111111;
+  --scrollbar-active-thumb-bg: #1a1a1a;
+
+  --modal-border-color: #151515;
+
+  --border-radius: 0px;
+  --radius-s: 0px;
+  --radius-m: 0px;
+  --radius-l: 0px;
+  --radius-xl: 0px;
+
+  --ribbon-background: #000000;
+  --ribbon-background-collapsed: #000000;
+
+  --vault-profile-color: var(--color-accent);
+  --vault-profile-color-hover: var(--color-accent-1);
+
+  --hr-color: #151515;
+}
+
+body {
+  --border-width: 1px;
+}
+
+/* ── zero radius / instant snap ────────────────── */
+*,
+.modal, .prompt, .suggestion-container,
+.workspace-tab-header, .workspace-leaf, .workspace-split,
+.nav-file-title, .nav-folder-title,
+.graph-controls, .community-item, .setting-item,
+button, input, textarea, select,
+.dropdown, .menu, .menu-item, .notice,
+.search-input-container, .tooltip,
+.vertical-tab-nav-item, .horizontal-tab-nav-item,
+.status-bar, .status-bar-item,
+.view-header, .view-header-nav-buttons,
+.suggestion-item, .callout,
+.canvas-node-container,
+.metadata-container, .mod-container,
+.workspace-drawer-inner,
+.clickable-icon, .modal-close-button,
+.checkbox-container, .tree-item-self,
+.embedded-backlinks, .backlink-pane, .outgoing-link-pane,
+.search-result, .progress-bar,
+.markdown-rendered code, .cm-inline-code,
+.setting-item-control button,
+.dropdown, select, .setting-item-control input,
+.vertical-tab-header-group-title,
+.horizontal-tab-group-header,
+.workspace-drawer-vault-actions,
+.workspace-drawer-active-tab-back-icon,
+.modal-content, .modal-bg,
+.suggestion-item, .prompt-results .suggestion-item,
+.callout, .callout-title, .callout-content,
+.popover, .popover-content,
+.flair-popover,
+.kanban-plugin__item,
+.block-language-dataview,
+.search-result-file-match,
+.search-result-file-matched-string,
+.search-result-hover-button,
+.workspace-tab-header-container-inner {
+  border-radius: 0 !important;
+}
+
+/* ── animation ──────────────────────────────────── */
+* {
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  transition-duration: 0s !important;
+  transition-delay: 0s !important;
+}
+
+/* ── pane borders (tmux split style) ───────────── */
+.workspace-split.mod-root .workspace-split {
+  border-left: 1px solid #151515;
+  border-right: 1px solid #151515;
+}
+
+/* ── left sidebar (file tree) ──────────────────── */
+.nav-folder-title,
+.nav-file-title {
+  padding: 3px 10px;
+  margin: 0;
+  font-size: 12.5px;
+  border-radius: 0;
+  line-height: 1.5;
+  border-left: 2px solid transparent;
+}
+
+.nav-folder-title:hover,
+.nav-file-title:hover {
+  background-color: rgba(255, 255, 255, 0.025);
+}
+
+.nav-file-title.is-active {
+  background-color: rgba(249, 115, 22, 0.08);
+  border-left: 2px solid var(--color-accent);
+  color: var(--text-accent);
+}
+
+.nav-files-container {
+  padding-top: 4px;
+}
+
+/* ── file explorer header ──────────────────────── */
+.nav-header {
+  border-bottom: 1px solid #151515;
+  background: #000000;
+  padding: 4px 8px;
+}
+
+/* ── tabs ───────────────────────────────────────── */
+.workspace-tab-header-container {
+  border-bottom: 1px solid #151515;
+  background: #000000;
+  padding: 0;
+  height: 32px;
+}
+
+.workspace-tab-header-container-inner {
+  padding: 0 6px;
+}
+
+.workspace-tab-header {
+  padding: 0 12px;
+  height: 32px;
+}
+
+.workspace-tab-header.is-active {
+  background: transparent;
+}
+
+.workspace-tab-header.is-active .workspace-tab-header-inner {
+  color: var(--text-accent);
+}
+
+.workspace-tab-header-inner {
+  color: var(--text-muted);
+}
+
+/* ── view header ───────────────────────────────── */
+.view-header {
+  background: #000000;
+  border-bottom: 1px solid #151515;
+  height: 36px;
+}
+
+.view-header-title {
+  color: var(--text-normal);
+  font-size: 13px;
+}
+
+/* ── editor ────────────────────────────────────── */
+.markdown-source-view,
+.markdown-reading-view {
+  background: #000000;
+  --file-line-width: 100%;
+  --line-width: 100%;
+  --max-width: 100%;
+}
+
+.markdown-source-view .cm-content,
+.markdown-reading-view .markdown-preview-view {
+  max-width: none !important;
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+}
+
+.cm-content {
+  padding-top: 12px;
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+}
+
+.markdown-source-view.is-live-preview .cm-content {
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+}
+
+.markdown-reading-view .markdown-preview-section {
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+  max-width: none !important;
+}
+
+/* ── headings ───────────────────────────────────── */
+.markdown-rendered h1, .cm-header-1 {
+  color: var(--text-accent);
+  font-weight: 700;
+  border-bottom: 1px solid #151515;
+  padding-bottom: 4px;
+}
+
+.markdown-rendered h2, .cm-header-2 {
+  color: var(--text-normal);
+  font-weight: 600;
+  border-bottom: 1px solid #0e0e0e;
+  padding-bottom: 3px;
+}
+
+.markdown-rendered h3, .cm-header-3 { color: var(--text-normal);  font-weight: 500; }
+.markdown-rendered h4, .cm-header-4 { color: var(--text-muted);   font-weight: 500; }
+.markdown-rendered h5, .cm-header-5 { color: var(--text-muted);   font-weight: 400; font-variant: small-caps; }
+.markdown-rendered h6, .cm-header-6 { color: var(--text-faint);   font-weight: 400; font-variant: small-caps; }
+
+/* ── code / pre ─────────────────────────────────── */
+.markdown-rendered pre,
+.cm-s-obsidian .HyperMD-codeblock {
+  background-color: #030303;
+  border: 1px solid #111111;
+  border-left: 2px solid var(--color-accent);
+  padding: 14px 16px;
+  font-family: "SF Mono", "JetBrains Mono", "Fira Code", "Cascadia Code", monospace;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.markdown-rendered code,
+.cm-inline-code {
+  background-color: #0a0a0a;
+  color: var(--code-function);
+  padding: 1px 5px;
+  font-size: 0.88em;
+  border: 1px solid #151515;
+  border-radius: 0;
+}
+
+/* ── blockquote ─────────────────────────────────── */
+.markdown-rendered blockquote,
+.HyperMD-quote {
+  border-left: 2px solid var(--color-accent);
+  background: rgba(249, 115, 22, 0.04);
+  color: var(--text-muted);
+  border-radius: 0;
+  padding: 10px 16px;
+  margin: 1em 0;
+}
+
+/* ── tags ───────────────────────────────────────── */
+.tag {
+  background-color: rgba(249, 115, 22, 0.1);
+  border: none;
+  color: var(--text-accent);
+  padding: 1px 8px;
+  font-size: 11px;
+}
+
+/* ── links ──────────────────────────────────────── */
+a.internal-link, .cm-hmd-internal-link,
+.cm-underline, .markdown-rendered a,
+.markdown-rendered .internal-link {
+  color: var(--text-accent);
+  text-decoration: none;
+}
+
+.markdown-rendered .internal-link:hover,
+a.internal-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  color: var(--text-accent-hover);
+}
+
+/* ── callouts ───────────────────────────────────── */
+.callout {
+  border: 1px solid #151515;
+  background: #030303;
+  padding: 14px 16px;
+}
+
+.callout-title {
+  color: var(--text-accent);
+  font-weight: 500;
+}
+
+.callout[data-callout="info"]  { border-left: 2px solid var(--color-accent); }
+.callout[data-callout="note"]  { border-left: 2px solid var(--color-accent); }
+.callout[data-callout="warn"]  { border-left: 2px solid #eab308; }
+.callout[data-callout="warning"] { border-left: 2px solid #eab308; }
+.callout[data-callout="error"] { border-left: 2px solid #ef4444; }
+.callout[data-callout="danger"]{ border-left: 2px solid #ef4444; }
+.callout[data-callout="done"]  { border-left: 2px solid #22c55e; }
+.callout[data-callout="success"]{ border-left: 2px solid #22c55e; }
+.callout[data-callout="tip"]   { border-left: 2px solid var(--color-accent); }
+.callout[data-callout="example"]{ border-left: 2px solid #8b5cf6; }
+
+/* ── checkboxes ─────────────────────────────────── */
+input[type="checkbox"] {
+  border: 1px solid #2a2a2a;
+  border-radius: 0;
+  background: transparent;
+}
+
+input[type="checkbox"]:checked {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+/* ── scrollbar ──────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #111111; border-radius: 0; }
+::-webkit-scrollbar-thumb:hover { background: #1a1a1a; }
+::-webkit-scrollbar-corner { background: transparent; }
+
+/* ── tables ─────────────────────────────────────── */
+.markdown-rendered table {
+  border: 1px solid #151515;
+  border-collapse: collapse;
+}
+
+.markdown-rendered th {
+  background: #050505;
+  border: 1px solid #151515;
+  color: var(--text-accent);
+  font-weight: 500;
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+.markdown-rendered td {
+  border: 1px solid #111111;
+  padding: 4px 12px;
+  font-size: 12px;
+}
+
+.markdown-rendered tr:nth-child(even) td {
+  background: #030303;
+}
+
+/* ── search ─────────────────────────────────────── */
+.search-input-container input {
+  background: #050505;
+  border: 1px solid #151515;
+  color: var(--text-normal);
+  font-family: inherit;
+}
+
+.search-input-container input:focus {
+  border-color: var(--color-accent);
+}
+
+/* ── cmd palette ────────────────────────────────── */
+.prompt {
+  border: 1px solid #151515;
+  background: #050505;
+}
+.suggestion-item.is-selected {
+  background: rgba(249, 115, 22, 0.12);
+  color: var(--text-accent);
+}
+
+/* ── inputs / forms ────────────────────────────── */
+input, textarea, select {
+  background: #050505;
+  border: 1px solid #151515;
+  color: var(--text-normal);
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--color-accent);
+  box-shadow: none;
+  outline: none;
+}
+
+.setting-item {
+  border-top: 1px solid #0e0e0e;
+}
+
+/* ── metadata / properties ─────────────────────── */
+.metadata-property-key {
+  color: var(--text-accent);
+  font-weight: 500;
+}
+
+.metadata-property-value {
+  color: var(--text-normal);
+}
+
+.metadata-container {
+  border-bottom: 1px solid #151515;
+}
+
+.metadata-add-button {
+  color: var(--text-accent);
+}
+
+/* ── cursor ─────────────────────────────────────── */
+.cm-cursor, .cm-cursorLayer {
+  border-left-color: var(--color-accent) !important;
+}
+
+.cm-cursor-primary {
+  border-left-color: var(--color-accent) !important;
+}
+
+/* ── selection ──────────────────────────────────── */
+::selection,
+.cm-selectionBackground {
+  background-color: rgba(249, 115, 22, 0.25) !important;
+}
+
+/* ── resize handles ─────────────────────────────── */
+.workspace-leaf-resize-handle {
+  background-color: #151515;
+}
+.workspace-leaf-resize-handle:hover {
+  background-color: var(--color-accent);
+}
+
+/* ── hide ribbon ────────────────────────────────── */
+.workspace-ribbon,
+.side-dock-settings,
+.side-dock-ribbon {
+  display: none !important;
+}
+
+/* ── status bar ─────────────────────────────────── */
+.status-bar {
+  background: #000000;
+  border-top: 1px solid #151515;
+  color: var(--text-faint);
+  font-size: 11px;
+  height: 26px;
+}
+
+/* ── modal / settings ──────────────────────────── */
+.modal {
+  background: #050505;
+  border: 1px solid #151515;
+}
+
+.modal-title {
+  color: var(--text-accent);
+}
+
+/* ── graph view ─────────────────────────────────── */
+.graph-view.color-fill { color: var(--color-accent); opacity: 0.6; }
+.graph-view.color-fill-highlight { color: var(--color-accent); opacity: 1; }
+.graph-view.color-fill-unresolved { color: var(--text-faint); opacity: 0.4; }
+.graph-view.color-line { color: #111111; }
+.graph-view.color-line-highlight { color: var(--color-accent); }
+.graph-view.color-arrow { color: var(--text-muted); }
+
+/* ── button style ──────────────────────────────── */
+button {
+  background: #080808;
+  border: 1px solid #151515;
+  color: var(--text-normal);
+}
+
+button:hover {
+  border-color: var(--color-accent);
+  color: var(--text-accent);
+}
+
+button.mod-cta {
+  background: var(--color-accent);
+  color: #000000;
+  border: none;
+  font-weight: 600;
+}
+
+button.mod-cta:hover {
+  background: var(--color-accent-1);
+}
+
+/* ── tooltip ────────────────────────────────────── */
+.tooltip {
+  background: #0a0a0a;
+  border: 1px solid #151515;
+  color: var(--text-normal);
+}
+
+/* ── menu / dropdown ───────────────────────────── */
+.menu {
+  background: #050505;
+  border: 1px solid #151515;
+  padding: 4px 0;
+}
+
+.menu-item {
+  color: var(--text-normal);
+  padding: 4px 16px;
+}
+
+.menu-item:hover,
+.menu-item.is-selected {
+  background-color: rgba(249, 115, 22, 0.1);
+  color: var(--text-accent);
+}
+
+/* ── notice ─────────────────────────────────────── */
+.notice {
+  background: #080808;
+  border: 1px solid #151515;
+  color: var(--text-normal);
+  border-radius: 0;
+}
+
+/* ── vim / indicate ────────────────────────────── */
+.cm-editor .cm-line {
+  caret-color: var(--color-accent) !important;
+}
+
+/* ── syntax highlighting (reading view) ───────── */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata { color: #5c6370 !important; font-style: italic !important; }
+
+.token.keyword,
+.token.selector,
+.token.atrule { color: #c678dd !important; }
+
+.token.string,
+.token.char,
+.token.attr-value,
+.token.url,
+.token.symbol { color: #98c379 !important; }
+
+.token.number { color: #d19a66 !important; }
+
+.token.function,
+.token.class-name { color: #e5c07b !important; }
+
+.token.operator,
+.token.entity { color: #abb2bf !important; }
+
+.token.property,
+.token.tag { color: #e06c75 !important; }
+
+.token.boolean,
+.token.constant { color: #d19a66 !important; }
+
+.token.builtin { color: #d19a66 !important; }
+
+.token.variable { color: #e5c07b !important; }
+
+.token.attr-name { color: #98c379 !important; }
+
+.token.regex { color: #98c379 !important; }
+
+.token.punctuation { color: #5c6370 !important; }
+
+.token.important { color: #e06c75 !important; }
+
+/* YAML key in reading view */
+.token.key { color: #e06c75 !important; }
+
+/* ── syntax highlighting (live preview / CodeMirror) ─ */
+.cm-s-obsidian span.cm-comment,
+.cm-s-obsidian .cm-comment { color: #5c6370 !important; font-style: italic !important; }
+
+.cm-s-obsidian span.cm-keyword,
+.cm-s-obsidian .cm-keyword { color: #c678dd !important; }
+
+.cm-s-obsidian span.cm-string,
+.cm-s-obsidian .cm-string,
+.cm-s-obsidian span.cm-string-2 { color: #98c379 !important; }
+
+.cm-s-obsidian span.cm-number,
+.cm-s-obsidian .cm-number,
+.cm-s-obsidian span.cm-atom { color: #d19a66 !important; }
+
+.cm-s-obsidian span.cm-def,
+.cm-s-obsidian .cm-def { color: #e5c07b !important; }
+
+.cm-s-obsidian span.cm-operator,
+.cm-s-obsidian .cm-operator { color: #abb2bf !important; }
+
+.cm-s-obsidian span.cm-property,
+.cm-s-obsidian .cm-property { color: #e06c75 !important; }
+
+.cm-s-obsidian span.cm-tag,
+.cm-s-obsidian .cm-tag { color: #e06c75 !important; }
+
+.cm-s-obsidian span.cm-variable,
+.cm-s-obsidian .cm-variable { color: #b0b0b0 !important; }
+
+.cm-s-obsidian span.cm-variable-2,
+.cm-s-obsidian .cm-variable-2 { color: #61afef !important; }
+
+.cm-s-obsidian span.cm-variable-3,
+.cm-s-obsidian .cm-variable-3 { color: #c678dd !important; }
+
+.cm-s-obsidian span.cm-type,
+.cm-s-obsidian .cm-type { color: #61afef !important; }
+
+.cm-s-obsidian span.cm-attribute,
+.cm-s-obsidian .cm-attribute { color: #e5c07b !important; }
+
+.cm-s-obsidian span.cm-link { color: #98c379 !important; }
+
+.cm-s-obsidian span.cm-builtin { color: #d19a66 !important; }
+
+.cm-s-obsidian span.cm-quote { color: #5c6370 !important; }
+
+.cm-s-obsidian span.cm-hr { color: #5c6370 !important; }
+
+.cm-s-obsidian span.cm-bracket { color: #5c6370 !important; }
+
+.cm-s-obsidian span.cm-meta { color: #abb2bf !important; }
+
+.cm-s-obsidian .cm-formatting-list { color: #5c6370 !important; }
+.cm-s-obsidian .cm-formatting-quote { color: #5c6370 !important; }
+
+/* ── HyperMD / CodeMirror 6 tokens (new editor) ─ */
+.hmd-codeblock span.cm-comment { color: #5c6370 !important; font-style: italic !important; }
+.hmd-codeblock span.cm-keyword { color: #c678dd !important; }
+.hmd-codeblock span.cm-string { color: #98c379 !important; }
+.hmd-codeblock span.cm-number { color: #d19a66 !important; }
+.hmd-codeblock span.cm-def { color: #e5c07b !important; }
+.hmd-codeblock span.cm-operator { color: #abb2bf !important; }
+.hmd-codeblock span.cm-property { color: #e06c75 !important; }
+.hmd-codeblock span.cm-tag { color: #e06c75 !important; }
+.hmd-codeblock span.cm-variable { color: #b0b0b0 !important; }
+.hmd-codeblock span.cm-variable-2 { color: #61afef !important; }
+.hmd-codeblock span.cm-variable-3 { color: #c678dd !important; }
+.hmd-codeblock span.cm-type { color: #61afef !important; }
+.hmd-codeblock span.cm-attribute { color: #98c379 !important; }
+.hmd-codeblock span.cm-builtin { color: #d19a66 !important; }
+.hmd-codeblock span.cm-meta { color: #abb2bf !important; }
+.hmd-codeblock span.cm-atom { color: #d19a66 !important; }
+.hmd-codeblock span.cm-bracket { color: #5c6370 !important; }
+
+/* YAML frontmatter */
+.cm-s-obsidian .cm-meta { color: #e06c75 !important; }
+.cm-s-obsidian .cm-def { color: #61afef !important; }
+.cm-s-obsidian .cm-atom { color: #d19a66 !important; }
+
+/* markdown formatting */
+.cm-s-obsidian span.cm-formatting { color: var(--text-faint); }
+.cm-s-obsidian span.cm-formatting-strong { color: var(--code-keyword); }
+.cm-s-obsidian span.cm-formatting-em { color: var(--code-keyword); }
+.cm-s-obsidian span.cm-header { color: var(--text-accent); }
+.cm-s-obsidian span.cm-formatting-header { color: var(--text-faint); }
+
+/* ── monospace ratio for terminal feel ─────────── */
+.markdown-source-view .cm-line,
+.markdown-reading-view {
+  line-height: 1.65;
+}
